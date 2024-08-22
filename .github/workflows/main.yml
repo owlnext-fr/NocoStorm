@@ -16,7 +16,6 @@ jobs:
     runs-on: ${{matrix.os}}
 
     strategy:
-      fail-fast: false
       matrix:
         include:
           # only linux for the moment, cross compilation will be handled later
