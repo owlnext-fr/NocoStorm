@@ -1,7 +1,15 @@
 [package]
 name = "nocostorm"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
+authors = ["Owlnext <contact@owlnext.fr>", "Adrien Gras <agr@owlnext.fr>"]
+description = "Lightning fast, multi-threaded tool to push CSV data into NocoDB tables"
+documentation = "https://github.com/owlnext-fr/nocostorm"
+readme = "README.md"
+repository = "https://github.com/owlnext-fr/nocostorm"
+license-file = "LICENSE"
+keywords = ["rust", "nocodb", "csv"]
+publish = false
 
 [dependencies]
 clap = { version = "4.5.16", features = ["derive"] }
