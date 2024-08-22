@@ -1,6 +1,7 @@
 # NocoStorm
 
-![GitHub release](https://img.shields.io/github/v/release/owlnext-fr/NocoStorm)
+![GitHub Release](https://img.shields.io/github/v/release/owlnext-fr/nocostorm?style=for-the-badge&logo=github&label=Current%20release)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/owlnext-fr/nocostorm/.github%2Fworkflows%2Fmain.yml?style=for-the-badge&logo=githubactions)
 
 ⚡ Lightning fast, multi-threaded tool to push CSV data into NocoDB tables
 
@@ -9,6 +10,8 @@ This CLI tool is designed to upload CSV files data into NocoDB tables. It is a c
 This internally uses NocoDB API to upload data, so you need to have a NocoDB server running and an API token to use this tool.
 
 Default options may be suitable for most use cases, but you can configure the tool to fit your needs with the available options.
+
+> ⚠️ This tool is quite ressource intensive and may slow down your NocoDB server if you upload a large amount of data. Use it with caution.
 
 ## Features
 
@@ -19,14 +22,14 @@ Default options may be suitable for most use cases, but you can configure the to
 
 ## Requirements
 
-- OS: Windows, Linux, macOS
-- A NocoDB server running or an instance of NocoDB Cloud.
-- An API token to access the NocoDB API.
-- A CSV file to upload.
+- **OS:** Linux (Sorry Windows and MacOS users, you can still use the source code to run the tool)
+- **A NocoDB server** running or an instance of NocoDB Cloud.
+- **An API token** to access the NocoDB API.
+- **A CSV file** to upload.
 
 ## Installation
 
-Check the [releases](https://github.com/owlnext-fr/NocoStorm/releases) page to download the latest version of NocoStorm.
+Check the [releases](https://github.com/owlnext-fr/nocostorm/releases) page to download the latest version of NocoStorm.
 
 Unzip/Utar the downloaded file and run the executable.
 
@@ -46,7 +49,6 @@ If you want to use this CLI in other tools or scripts, you can use the available
 | ----------------------------- | -------------------------------------------------------------- | ------------------------------------------- |
 | `-b`, `--nocodb-base-url`     | The base URL of the NocoDB server                              | Will be asked interactively if not provided |
 | `-k`, `--nocodb-api-token`    | The API token to access the NocoDB API                         | Will be asked interactively if not provided |
-| `-p`, `--nocodb-project-id`   | The NocoDB project ID to upload data to                        | Will be asked interactively if not provided |
 | `-t`, `--nocodb-table-id`     | The ID of the table to upload data to                          | Will be asked interactively if not provided |
 | `-j`, `--parallel-jobs`       | The number of parallel jobs to run                             | `4`                                         |
 | `-c`, `--chunk-size`          | The number of rows to upload per chunk                         | `1000`                                      |

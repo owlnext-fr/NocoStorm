@@ -1,0 +1,77 @@
+name: Deploy
+
+# trigger on tags
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+
+jobs:
+  # main job
+  release:
+    name: release ${{ matrix.target }}
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # only linux for the moment, cross compilation will be handled later
+          - build: linux
+            os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+
+    steps:
+      # checks out the repository
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # install openssl
+      - name: Install OpenSSL (Linux)
+        shell: bash
+        run: |
+          sudo apt install pkg-config libssl-dev
+
+      # get the release version from the tag
+      - name: Get the release version from the tag
+        shell: bash
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      # install rust
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      # build the project
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: false
+          command: build
+          args: --verbose --release --target ${{ matrix.target }}
+
+      # build the release archive
+      - name: Build archive
+        shell: bash
+        run: |
+          # Replace with the name of your binary
+          binary_name="nocostorm"
+
+          dirname="$binary_name-${{ env.VERSION }}-${{ matrix.target }}"
+          mkdir "$dirname"
+          mv "target/${{ matrix.target }}/release/$binary_name" "$dirname"
+          mv "README.md" "$dirname"
+          tar -czf "$dirname.tar.gz" "$dirname"
+          echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
+
+      # create a release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ env.ASSET }}
+          body_path: CHANGELOG.md
