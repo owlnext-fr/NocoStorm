@@ -41,7 +41,33 @@ nocostorm [OPTIONS] <FILE>
 
 The CLI only take one argument, which is the path to the CSV file to upload, and will ask for other required information interactively.
 
-If you want to use this CLI in other tools or scripts, you can use the available options to configure the tool.
+If you want to use this CLI in other tools or scripts, you can use the available [options](#options) to configure the tool.
+
+## Example
+
+Basic example:
+
+```bash
+nocostorm ./my_big_data.csv \
+    --nocodb-base-url=https://my.noco.instance.fr \
+    --nocodb-api-token=aaa \
+    --nocodb-table-id=bbb \
+```
+
+Complete example:
+
+```bash
+nocostorm ./my_big_data.csv \
+    --nocodb-base-url=https://my.noco.instance.fr \
+    --nocodb-api-token=aaa \
+    --nocodb-table-id=bbb \
+    --parallel-jobs=4 \
+    --chunk-size=1000 \
+    --csv-separator=',' \
+    --csv-quote-separator='"' \
+    --use-windows-foramt=false \
+    --vv
+```
 
 ## Options
 
@@ -55,3 +81,11 @@ If you want to use this CLI in other tools or scripts, you can use the available
 | `-s`, `--csv-separator`       | The separator used in the CSV file                             | `,`                                         |
 | `-u`, `--csv-quote-separator` | The quote separator used in the CSV file                       | `"`                                         |
 | `-w`, `--use-windows-foramt`  | Use Windows encoding for the CSV file (useful for excel files) | `false`                                     |
+
+## Contributing
+
+If you want to contribute to this project, please read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
